@@ -1,0 +1,19 @@
+dataset,workload,index,index_size_mb
+Books,10% Insert,DynamicPGM,1703.429848
+Books,10% Insert,LIPP,11818.52576
+Books,10% Insert,HybridPGMLIPP,11818.296296
+Books,90% Insert,DynamicPGM,1703.241188
+Books,90% Insert,LIPP,11753.6132
+Books,90% Insert,HybridPGMLIPP,11741.756924
+Facebook,10% Insert,DynamicPGM,1705.226028
+Facebook,10% Insert,LIPP,12700.946864
+Facebook,10% Insert,HybridPGMLIPP,12700.59596
+Facebook,90% Insert,DynamicPGM,1702.518268
+Facebook,90% Insert,LIPP,12656.662928
+Facebook,90% Insert,HybridPGMLIPP,12636.255772
+OSMC,10% Insert,DynamicPGM,1701.834168
+OSMC,10% Insert,LIPP,20602.887232
+OSMC,10% Insert,HybridPGMLIPP,20602.527208
+OSMC,90% Insert,DynamicPGM,1701.839508
+OSMC,90% Insert,LIPP,20408.967088
+OSMC,90% Insert,HybridPGMLIPP,20387.542612
