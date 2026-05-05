@@ -37,8 +37,19 @@ WORKLOAD_LABELS = {
     "0.100000i_0m_mix": "10% Insert",
 }
 
-INDEX_ORDER  = ["DynamicPGM", "LIPP", "HybridPGMLIPP"]
-INDEX_COLORS = {"DynamicPGM": "#4C72B0", "LIPP": "#DD8452", "HybridPGMLIPP": "#55A868"}
+INDEX_ORDER  = ["DynamicPGM", "LIPP", "HybridPGMLIPP", "HybridPGMLIPPAsync"]
+INDEX_COLORS = {
+    "DynamicPGM":         "#4C72B0",
+    "LIPP":               "#DD8452",
+    "HybridPGMLIPP":      "#55A868",
+    "HybridPGMLIPPAsync": "#C44E52",
+}
+INDEX_LABELS = {
+    "DynamicPGM":         "DPGM",
+    "LIPP":               "LIPP",
+    "HybridPGMLIPP":      "Hybrid\n(M2)",
+    "HybridPGMLIPPAsync": "Hybrid\n(M3)",
+}
 
 
 def parse_csv(filepath: str) -> pd.DataFrame:
@@ -97,17 +108,18 @@ def bar_plot(ax, records: dict, ylabel: str, title: str):
     names  = [n for n in INDEX_ORDER if n in records]
     values = [records[n] for n in names]
     colors = [INDEX_COLORS.get(n, "#999") for n in names]
+    labels = [INDEX_LABELS.get(n, n) for n in names]
     x = np.arange(len(names))
-    bars = ax.bar(x, values, color=colors, edgecolor="black", linewidth=0.6)
+    bars = ax.bar(x, values, color=colors, edgecolor="black", linewidth=0.6, width=0.5)
     ax.set_xticks(x)
-    ax.set_xticklabels(names, rotation=15, ha="right", fontsize=9)
+    ax.set_xticklabels(labels, fontsize=9)
     ax.set_ylabel(ylabel, fontsize=10)
-    ax.set_title(title, fontsize=11)
+    ax.set_title(title, fontsize=10, pad=4)
     ax.yaxis.grid(True, linestyle="--", alpha=0.7)
     ax.set_axisbelow(True)
     for bar, v in zip(bars, values):
-        ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() * 1.01,
-                f"{v:.2f}", ha="center", va="bottom", fontsize=8)
+        ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() * 1.02,
+                f"{v:.1f}", ha="center", va="bottom", fontsize=7.5)
 
 
 # ── main ─────────────────────────────────────────────────────────────────────
@@ -205,6 +217,7 @@ def main():
     pd.DataFrame(throughput_rows).to_csv(tp_path, index=False)
     pd.DataFrame(index_size_rows).to_csv(sz_path, index=False)
     print(f"\nSummary tables written to:\n  {tp_path}\n  {sz_path}")
+
 
 
 if __name__ == "__main__":
